@@ -1,12 +1,21 @@
 #include <iostream>
-#include "./Eigen3/Dense"
-using namespace std;
+#include "FPLib/include.h"
 
+
+using namespace std;
+using namespace FIREPHOENIX;
 int main()
 {
-    Eigen::MatrixXd a(3,3);
-    a(0,0) = 1.0;
-    a(0,2) = 3.0;
-    cout  << a(0,0) << '\t' << a(0,2) << endl;
+    Eigen::MatrixXd num(1,3);
+    Eigen::MatrixXd den(1,3);
+    num << 0.1, 0.2,  0.8;
+    den << 1.0 , - 1.2 , 0.3;
+    DiscreteTransFun<double> dSys(num, den);
+
+    for( int i = 0; i < 50; ++i )
+    {
+        cout << dSys.StepForward(2.0) << endl;
+    }
+
     return 0;
 }
